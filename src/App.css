@@ -68,3 +68,26 @@ html,body{
     font-weight: bold;
     font-size: 22px;
 }
+
+
+@media (max-width:426px){
+    .weatherInfo{
+        height: 100vh;
+        width: 100%;
+    }
+    .infoCard{
+        width: 100%;
+        
+        
+    }
+    .MuiFormControl-root {
+        width: 100%;
+        
+     
+    }
+    .MuiFormControl-root button{
+        height: 50px;
+        border-radius: 0;
+        
+    }
+}
