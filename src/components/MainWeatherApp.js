@@ -15,19 +15,23 @@ export default class MainWeatherApp extends Component {
 
     this.state = {
       userInput: "",
+      city:'',
       apiCurrentData: "",
       networkError: false,
+      isLoading: false,
     };
   }
 
-  btnClicked = (userInput) => {
-    this.setState({
-      userInput: userInput,
-    });
+  btnClicked = () => {
+    
 
 
 
     if (this.state.userInput !== "") {
+        this.setState({isLoading:true})
+        this.setState(state=>({
+            city:state.userInput
+        }))
       axios
         .get(
           `${this.apiURl}current.json?key=${this.apiKey}&q=${this.state.userInput}&aqi=no`
@@ -38,7 +42,10 @@ export default class MainWeatherApp extends Component {
           })
           this.setState({
             apiCurrentData: response.data.current
-          });
+          })
+          
+          this.setState({isLoading:false})
+          
          
         })
         .catch(error=>{
@@ -74,10 +81,12 @@ this.setState({
           networkError={this.state.networkError}
           btnClicked={this.btnClicked}
           ApiData={this.state.apiCurrentData}
-          userInput={this.userInput}
+          city={this.state.city}
+          isLoading={this.state.isLoading}
         />
         <FormControl  margin="dense" >
           <TextField
+            
             fullWidth={true}
             variant={"outlined"}
             label={"Название города"}
