@@ -2,9 +2,7 @@ import React, { Component } from "react";
 
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
+
 
 export default class MainWeatherApp extends Component {
   constructor(props) {
@@ -22,7 +20,8 @@ export default class MainWeatherApp extends Component {
     };
   }
 
-  btnClicked = () => {
+  btnClicked = (e) => {
+    e.preventDefault()
     
 
 
@@ -84,17 +83,12 @@ this.setState({
           city={this.state.city}
           isLoading={this.state.isLoading}
         />
-        <FormControl  margin="dense" >
-          <TextField
-            
-            fullWidth={true}
-            variant={"outlined"}
-            label={"Название города"}
-            onChange={this.handleChange}
-            
-          />
-          <Button onClick={this.btnClicked} variant={"contained"}>Узнать</Button>
-        </FormControl>
+        
+            <form onSubmit={this.btnClicked} className="mainForm">
+                <input onChange={this.handleChange}/>
+                <button type="submit">Узнать</button>
+            </form>
+        
       </>
     );
   }
