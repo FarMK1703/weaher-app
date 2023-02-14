@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -16,16 +16,22 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    padding-top: 60px;
+    flex-direction: row;
+    overflow-y: scroll;
+    overflow-x: hidden;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     position: relative;
+    align-content: center;
     background-size: 2000px 1000px;
     background-image: url('./static/Wave.svg');
     background-position: -500px 0;
+    background-repeat: repeat;
     color: #f9f9f9;
     font-family: 'Euclid Circular A';
-    animation: background 10s infinite alternate linear;
+    animation: background 20s infinite alternate linear;
 
 
 
@@ -33,13 +39,19 @@ body {
 
 }
 
-@keyframes background{
-    100%{
+@media(max-width:769px) {
+    .App {
+        align-content: start;
+    }
+}
+
+@keyframes background {
+    100% {
         background-size: 4000px 1000px;
     }
 }
 
-.mainForm{
+.mainForm {
     position: absolute;
     top: 0;
     left: 0;
@@ -48,10 +60,12 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 15px;
-    
+
+
 }
 
-.mainForm input{
+
+.mainForm input {
     width: 20%;
     outline: none;
     backdrop-filter: blur(16px) saturate(180%);
@@ -60,25 +74,25 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.125);
     color: #e0e0e0;
     border: none;
-    padding:10px;
+    padding: 10px;
     font-size: 18px;
-    
+
 }
 
-.mainForm button{
+.mainForm button {
     width: 10%;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(17, 25, 40, 0.75);
     border: 1px solid rgba(255, 255, 255, 0.125);
-   color: #157ae1;   
-   outline: none;
-   border: none;
-   font-size: 16px;
-      
+    color: #157ae1;
+    outline: none;
+    border: none;
+    font-size: 16px;
+
 }
 
-.mainForm button:hover{
+.mainForm button:hover {
     border: 1px solid #157ae1;
     cursor: pointer;
 }
@@ -99,9 +113,10 @@ body {
 
 .weatherCard {
 
-    width: 300px;
-    height: 400px;
+    width: 250px;
+    height: 200px;
     border-radius: 20px;
+    margin: 10px;
     padding: 5px;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -125,47 +140,101 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 20px;
-    
+    padding-top: 10px;
+
 }
 
-.weatherCardImg img{
+.weatherCardImg img {
     width: 80px;
     height: 80px;
 }
 
-.weatherCardLabel{
+
+
+
+
+
+.weatherCardSubinfo {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    color: #f9f9f9;
+    justify-content: center;
 }
 
-.weatherCardLabel p{
-  font-size: 20px;
-  text-align: bottom;
+.tempDate img {
+    width: 15px;
+    height: 15px;
+    margin-left: 3px;
+
 }
 
-.weatherCardSubinfo{
-    height: 100%;
-    display: flex;
-    align-items: end;
-}
-
-.weatherCardSubinfo ul{
-
+.tempDate {
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
 }
 
-.weatherCardSubinfo ul li{
-    margin-bottom: 20px;
+.windHum {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 18px;
 }
 
-.weatherCardSubinfo ul span{
-    color: #FFCF2C;
+.windHum img {
+    width: 25px;
+    height: 25px;
 }
 
+.windHum span {
+    display: flex;
+    align-items: center;
+}
 
+@media(max-width:426px){
+    .weatherCard{
+        width: 100%;
+        height: 80px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .weatherCardImg{
+        padding: 0;
+        width: 20%;
+        height: 100%;
+    }
+    .weatherCardSubinfo{
+        flex-direction: row;
+        
+    }
+
+    .tempDate{
+        justify-content: start;
+        font-size: 16px;
+        display: inline;
+        width: 30%;
+    }
+
+    .windHum{
+        width: 60%;
+        font-size: 14px;
+    }
+
+    .windHum span{
+        margin-left: 20px;
+        width: 100px;
+    }
+
+    .windHum p{
+        width: 60px;
+    }
+
+   
+}
 
 .lds-roller {
     margin: 0 auto;
@@ -275,11 +344,12 @@ body {
 
 
 
-@media(max-width:769px){
-    .mainForm input{
+@media(max-width:769px) {
+    .mainForm input {
         width: 80%;
     }
-    .mainForm button{
+
+    .mainForm button {
         width: 20%;
     }
 }

@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 
-
 export default class MainWeatherApp extends Component {
   constructor(props) {
     super(props);
@@ -13,82 +12,82 @@ export default class MainWeatherApp extends Component {
 
     this.state = {
       userInput: "",
-      city:'',
+      city: "",
       apiCurrentData: "",
       networkError: false,
-      isLoading: false,
+      isLoading: true,
     };
   }
 
   btnClicked = (e) => {
-    e.preventDefault()
-    
-
-
+    e.preventDefault();
 
     if (this.state.userInput !== "") {
-        this.setState({isLoading:true})
-        this.setState(state=>({
-            city:state.userInput
-        }))
+      this.setState({ isLoading: true });
+      this.setState((state) => ({
+        city: state.userInput,
+      }));
       axios
         .get(
-          `${this.apiURl}current.json?key=${this.apiKey}&q=${this.state.userInput}&aqi=no`
+          `${this.apiURl}forecast.json?key=${this.apiKey}&q=${this.state.userInput}&days=7&aqi=no`
         )
         .then((response) => {
           this.setState({
-            networkError:false
-          })
+            networkError: false,
+          });
           this.setState({
-            apiCurrentData: response.data.current
-          })
-          
-          this.setState({isLoading:false})
-          
-         
+            apiCurrentData: response.data.forecast.forecastday.map((item) => {
+              return item.day;
+            }),
+          });
+          console.log(this.state.apiCurrentData);
+
+          this.setState({ isLoading: false });
         })
-        .catch(error=>{
-            console.log(error)
-            this.setState({
-                networkError:true
-            })
-        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({
+            networkError: true,
+          });
+        });
+    } else {
+      alert("Ничего не введено");
     }
-
-
-    else{
-        alert('Ничего не введено')
-    }
-
-
-
   };
 
-
-
-
-handleChange=(e)=>{
-this.setState({
-    userInput:e.target.value
-})
-}
+  handleChange = (e) => {
+    this.setState({
+      userInput: e.target.value,
+    });
+  };
 
   render() {
+   let date=new Date()
     return (
       <>
-        <WeatherInfo
-          networkError={this.state.networkError}
-          btnClicked={this.btnClicked}
-          ApiData={this.state.apiCurrentData}
-          city={this.state.city}
-          isLoading={this.state.isLoading}
-        />
-        
-            <form onSubmit={this.btnClicked} className="mainForm">
-                <input onChange={this.handleChange}/>
-                <button type="submit">Узнать</button>
-            </form>
-        
+        {this.state.isLoading ? (
+          <div className="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          this.state.apiCurrentData.map((item, index) => {
+            return (
+              <WeatherInfo day={date.getDate()+index} key={index} apiData={item} city={this.state.city} />
+            );
+          })
+        )}
+
+        <form onSubmit={this.btnClicked} className="mainForm">
+          <input onChange={this.handleChange} />
+          <button type="submit">Узнать</button>
+        </form>
       </>
     );
   }
