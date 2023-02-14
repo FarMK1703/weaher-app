@@ -9,6 +9,7 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
+    
 
 }
 
@@ -18,8 +19,7 @@ body {
     display: flex;
     padding-top: 60px;
     flex-direction: row;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -32,6 +32,7 @@ body {
     color: #f9f9f9;
     font-family: 'Euclid Circular A';
     animation: background 20s infinite alternate linear;
+    
 
 
 
@@ -42,6 +43,7 @@ body {
 @media(max-width:769px) {
     .App {
         align-content: start;
+        overflow-y: scroll;
     }
 }
 
