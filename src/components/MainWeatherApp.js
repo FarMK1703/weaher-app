@@ -24,6 +24,7 @@ export default class MainWeatherApp extends Component {
 
     if (this.state.userInput !== "") {
       this.setState({ isLoading: true });
+      this.setState({networkError:false})
       this.setState((state) => ({
         city: state.userInput,
       }));
@@ -76,11 +77,11 @@ export default class MainWeatherApp extends Component {
    let date=new Date()
     return (
       <>
-        {this.state.apiCurrentData? 
         
-        this.state.networkError? <div className="">Возникла ошибка соединения</div>:
-         <>
-         {this.state.isLoading ? (
+        
+        {this.state.networkError? <div className="GuidenceInfo">Возникла ошибка соединения. Возможно неверно указано название города</div>:
+         
+         this.state.isLoading ? (
           <div className="lds-roller">
             <div></div>
             <div></div>
@@ -91,18 +92,22 @@ export default class MainWeatherApp extends Component {
             <div></div>
             <div></div>
           </div>
-        ) : (
+        ) : 
+        this.state.apiCurrentData? 
+        (
           this.state.apiCurrentData.map((item, index) => {
             return (
               <WeatherInfo day={date.getDate()+index} key={index} apiData={item} city={this.state.city} />
-            );
+                );
           })
-        )}
-         </>
-        
-        :
-        <div className="PreLoadInfo">Введите название города и узнайте прогноз погоды на неделю</div>
+        ): 
+        <div className="GuidenceInfo">Введите название города и узнайте прогноз погоды на неделю</div>
         }
+        
+         
+        
+        
+        
 
         <form onSubmit={this.btnClicked} className="mainForm">
           <input onChange={this.handleChange} />
