@@ -9,7 +9,7 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    
+
 
 }
 
@@ -33,7 +33,7 @@ body {
     color: #f9f9f9;
     font-family: 'Euclid Circular A';
     animation: background 20s infinite alternate linear;
-    
+
 
 
 
@@ -198,7 +198,7 @@ body {
     align-items: center;
 }
 
-.GuidenceInfo{
+.GuidenceInfo {
     padding: 20px;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -207,46 +207,48 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
-@media(max-width:426px){
-    .weatherCard{
+@media(max-width:426px) {
+    .weatherCard {
         width: 100%;
         height: 80px;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
     }
-    .weatherCardImg{
+
+    .weatherCardImg {
         padding: 0;
         width: 20%;
         height: 100%;
     }
-    .weatherCardSubinfo{
+
+    .weatherCardSubinfo {
         flex-direction: row;
-        
+
     }
 
-    .tempDate{
+    .tempDate {
         justify-content: start;
         font-size: 16px;
         display: inline;
         width: 30%;
     }
 
-    .windHum{
+    .windHum {
         width: 60%;
         font-size: 14px;
     }
 
-    .windHum span{
+    .windHum span {
         margin-left: 20px;
         width: 100px;
     }
 
-    .windHum p{
+    .windHum p {
         width: 60px;
     }
 
-   
+
 }
 
 .lds-roller {
