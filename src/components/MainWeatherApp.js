@@ -13,7 +13,7 @@ export default class MainWeatherApp extends Component {
     this.state = {
       userInput: "",
       city: "",
-      apiCurrentData: "",
+      apiData: "",
       networkError: false,
       isLoading: false,
     };
@@ -30,7 +30,7 @@ export default class MainWeatherApp extends Component {
       networkError: false,
     });
     this.setState({
-      apiCurrentData: response.data.forecast.forecastday.map((item) => {
+      apiData: response.data.forecast.forecastday.map((item) => {
         return item.day;
       }),
     });
@@ -68,12 +68,7 @@ export default class MainWeatherApp extends Component {
     }
   };
 
-  componentDidMount() {
-    if (sessionStorage.getItem("userInput")) {
-     this.callApi(sessionStorage.getItem('userInput'),false)
-     this.setState({userInput:sessionStorage.getItem('userInput')})
-    }
-  }
+  
 
   handleChange = (e) => {
     this.setState({
@@ -81,8 +76,23 @@ export default class MainWeatherApp extends Component {
     });
   };
 
+
+
+  componentDidMount() {
+    if (sessionStorage.getItem("userInput")) {
+     this.callApi(sessionStorage.getItem('userInput'),false)
+     this.setState({userInput:sessionStorage.getItem('userInput')})
+    }
+  }
+
+
   render() {
     let date = new Date();
+    let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    let lastDay = lastDayDate.toLocaleString('RU', {day: 'numeric'});
+    
+
+
     return (
       <>
         {this.state.networkError ? (
@@ -100,11 +110,12 @@ export default class MainWeatherApp extends Component {
             <div></div>
             <div></div>
           </div>
-        ) : this.state.apiCurrentData ? (
-          this.state.apiCurrentData.map((item, index) => {
+        ) : this.state.apiData ? (
+          this.state.apiData.map((item, index) => {
             return (
               <WeatherInfo
-                day={date.getDate() + index}
+                lastDay={lastDay}
+                day={date.getDate()+index}
                 key={index}
                 apiData={item}
                 city={this.state.city}
@@ -113,7 +124,7 @@ export default class MainWeatherApp extends Component {
           })
         ) : (
           <div className="GuidenceInfo">
-            Введите название города и узнайте прогноз погоды на неделю
+            Введите название города и узнайте прогноз погоды на 3 дня
           </div>
         )}
 

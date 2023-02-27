@@ -6,6 +6,9 @@ import raindrop from "../static/raindrop.svg";
 export default function WeatherInfo(props) {
   const data = props.apiData;
   let date = new Date();
+  let day=props.day
+  let lastDay=props.lastDay
+  let month=date.getMonth()
 
   const monthes = [
     "Янв",
@@ -21,6 +24,15 @@ export default function WeatherInfo(props) {
     "Нояб",
     "Дек",
   ];
+  
+
+
+  if(day>lastDay){
+    day=1
+    month=month+1
+  }
+
+ 
 
   return (
     <>
@@ -35,7 +47,7 @@ export default function WeatherInfo(props) {
               <img src={celcius} />
             </p>
             <p>
-              {props.day} {monthes[date.getMonth()]}
+               {day} {monthes[month]}
             </p>
           </div>
           <div className="windHum">
